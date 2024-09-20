@@ -1,0 +1,39 @@
+﻿@model XML_Generation_from__HTML_view.Models.VModels.EmployeeListViewModel
+
+<div>
+    <h3 class="text-primary">Employee List</h3>
+</div>
+<hr />
+<div class="row">
+    <div class="table">
+        <table class="table border table-responsive">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>
+                        <td>@employee.EmployeeName</td>
+                        <td>@employee.Department.DepartmentName</td>
+                        <td>@employee.Position.PositionName</td>
+                        <td>@employee.Address.Street, @employee.Address.City - @employee.Address.ZipCode</td>
+                        <td>
+                            <!-- Button to create ZIP file for the specific employee -->
+                            <form asp-controller="Employee" asp-action="CreateZipFile" method="post">
+                                <input type="hidden" name="employeeId" value="@employee.EmployeeId" />
+                                <button type="submit" class="btn btn-primary">Download ZIP</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
